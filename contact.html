@@ -146,53 +146,61 @@
                                     class="fa fa-envelope-open text-white"></i></div>
                             <div class="ms-4 elem_hover">
                                 <h4>Email</h4>
-                                <p class="mb-0">sales@sphereinfo.in</p>
+                                <p class="mb-0">isales@sphereinfo.in</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.3s">
-                    <form>
+                    <form id="contact-form">
                         <div class="row g-3">
                             <div class="col-lg-12 col-xl-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Your Name" pattern="[A-Za-z\s]+"
+                                        title="Name should contain only letters and spaces" required>
                                     <label for="name">Your Name</label>
                                 </div>
                             </div>
+
                             <div class="col-lg-12 col-xl-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="Your Email" required>
                                     <label for="email">Your Email</label>
                                 </div>
                             </div>
                             <div class="col-lg-12 col-xl-6">
                                 <div class="form-floating">
-                                    <input type="phone" class="form-control" id="phone" placeholder="Phone">
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone"
+                                        pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
                                     <label for="phone">Your Phone</label>
                                 </div>
                             </div>
                             <div class="col-lg-12 col-xl-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="project" placeholder="Project">
+                                    <input type="text" class="form-control" id="project" name="project"
+                                        placeholder="Project" required>
                                     <label for="project">Your Project</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                    <input type="text" class="form-control" id="subject" name="subject"
+                                        placeholder="Subject" required>
                                     <label for="subject">Subject</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
                                     <textarea class="form-control" placeholder="Leave a message here" id="message"
-                                        style="height: 160px"></textarea>
+                                        name="message" style="height: 160px" required></textarea>
                                     <label for="message">Message</label>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3 elem_hover">Send Message</button>
+                                <button type="submit" class="btn btn-primary w-100 py-3 elem_hover">Send
+                                    Message</button>
                             </div>
                         </div>
                     </form>
@@ -219,7 +227,7 @@
             <div class="row g-5">
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="logo shadow elem_hover">
-                        <img style="width: 120px;" src="img/Sphere_logo.png" alt="Company Logo">
+                        <img style="width: 140px;" src="img/Sphere_logo.png" alt="Company Logo">
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 col-xl-3">
@@ -239,7 +247,7 @@
                             400 069
                         </a>
                         <a href=""><i class="fas fa-envelope me-2"></i>corporate@sphereinfo.in</a>
-                        <a href="" class="mb-3"><i class="fas fa-phone-alt me-2"></i>+91 89767 62834</a>
+                        <a href="" class="mb-3"><i class="fas fa-phone-alt me-2"></i>+91 8976762834</a>
                         <div class="d-flex align-items-center">
                             <a target="_blank" href="https://www.linkedin.com/company/sphereinfo/"
                                 class="btn btn-primary btn-square rounded-circle nav-fill me-3"><i
@@ -295,6 +303,24 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init("YOUR_USER_ID");
+        })();
+
+        document.getElementById('contact-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+                .then(function () {
+                    alert("Message sent successfully!");
+                }, function (error) {
+                    console.error("Failed to send email:", error);
+                    alert("Failed to send message.");
+                });
+        });
+    </script>
 </body>
 
 </html>
