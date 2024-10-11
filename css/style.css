@@ -1003,6 +1003,7 @@
 
 .footer .logo {
     width: 160px;
+    height: 160px;
     display: flex;
     justify-content: center;
     align-items: center;
