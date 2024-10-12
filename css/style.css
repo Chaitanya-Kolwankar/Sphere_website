@@ -172,6 +172,7 @@
     border-width: 1px;
 }
 
+
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link.active,
 .sticky-top .navbar .navbar-nav .nav-link:hover,
@@ -1130,13 +1131,12 @@
 /* Centered logo */
 .semi-circle-sidebar .logo {
     width: 80px;
-    /* Adjusted width to make it more prominent */
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     top: 34px;
-    /* Move it up to better center it */
+    transform: none; /* Logo should remain unaffected by rotation */
 }
 
 .semi-circle-sidebar .logo img {
@@ -1155,7 +1155,7 @@
 .sidebar li {
     position: absolute;
     transform-origin: -800% 30px;
-    /* Adjust pivot for a smoother arc */
+    /* Adjust pivot for smoother arc */
 }
 
 /* Adjusted rotation and translation for a smoother semi-circle with 6 items */
@@ -1183,8 +1183,6 @@
     transform: rotate(22deg) translateX(-6px);
 }
 
-
-
 /* Link styling for icons */
 .sidebar .nav-link {
     display: flex;
@@ -1198,21 +1196,47 @@
     font-size: 22px;
     position: relative;
     transition: all 0.3s ease;
+    transform: none; /* Ensure the icon itself is not rotated */
 }
 
-/* Label that shows when hovered or when active */
+/* Counter-rotate the icons to keep them straight */
+.sidebar li:nth-child(1) .nav-link {
+    transform: rotate(28deg); /* Counter-rotate the icon */
+}
+
+.sidebar li:nth-child(2) .nav-link {
+    transform: rotate(18deg);
+}
+
+.sidebar li:nth-child(3) .nav-link {
+    transform: rotate(8deg);
+}
+
+.sidebar li:nth-child(4) .nav-link {
+    transform: rotate(-2deg);
+}
+
+.sidebar li:nth-child(5) .nav-link {
+    transform: rotate(-12deg);
+}
+
+.sidebar li:nth-child(6) .nav-link {
+    transform: rotate(-22deg);
+}
+
+/* Label (span) that shows when hovered or when active */
 .sidebar .nav-link span {
     display: none;
     background-color: var(--bs-primary);
     color: white;
     padding: 5px 10px;
-    margin-left: 10px;
+    margin-left: 20px !important;
     border-radius: 20px;
     white-space: nowrap;
     position: absolute;
     left: 56px;
     font-size: 18px;
-    transform: none !important;
+    transform: none !important; /* Prevent span from rotating */
 }
 
 /* Show label on hover */
@@ -1220,24 +1244,30 @@
     display: inline-block;
 }
 
-/* Always show label for the active section */
-/* .sidebar .nav-item.active .nav-link span {
-    display: inline-block;
-} */
-
-/* Hover effect for icon background */
-.sidebar .nav-link.section-link:hover {
+/* Hover effect for icon background - Isolated to the icon */
+.sidebar .nav-link:hover::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
     background-color: var(--bs-primary);
-    color: white;
-    transform: scale(1.2);
+    border-radius: 50%;
+    transform: scale(1.2); /* Scale only the icon background */
+    transition: all 0.3s ease;
+    z-index: -1; /* Make sure it stays behind the icon */
+}
+
+/* Icon grows in size */
+.sidebar .nav-link:hover {
+    color: white; /* Change text color on hover */
     box-shadow: 0 4px 8px rgba(160, 158, 158, 0.879);
 }
 
-/* Styling for active icon */
-.sidebar .nav-item.active .nav-link {
-    background-color: var(--bs-primary);
-    color: white;
+/* Ensure span stays straight and does not rotate or scale */
+.sidebar .nav-link:hover span {
+    transform: none !important;
 }
+
 
 /* Hover */
 .elem_hover {
@@ -1247,7 +1277,7 @@
 
 .elem_hover:hover {
     transform: translate(12px, 8px); 
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 /* background image */

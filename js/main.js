@@ -149,17 +149,19 @@
     }
 
     //-----side bar
-    document.addEventListener('DOMContentLoaded', function () {
+    window.onload = function () {
         var sidebar = document.getElementById('sidebar');
         if (sidebar) {
             var header = document.getElementById('header-section');
             var footer = document.getElementById('footer-section');
-
+    
+            // Observer options to trigger when at least 1% of the header/footer is visible
             var observerOptions = {
                 root: null,
-                threshold: 1
+                threshold: 1 // Detect small overlaps
             };
-
+    
+            // Function to hide the sidebar when overlapping
             function hideSidebarOnOverlap(entries) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -171,12 +173,36 @@
                     }
                 });
             }
-
+    
+            // Create observers for header and footer
             var headerObserver = new IntersectionObserver(hideSidebarOnOverlap, observerOptions);
             var footerObserver = new IntersectionObserver(hideSidebarOnOverlap, observerOptions);
-
+    
+            // Observe the header and footer
             headerObserver.observe(header);
             footerObserver.observe(footer);
+    
+            // Manual check to ensure no overlap on page load
+            function checkInitialOverlap() {
+                var headerRect = header.getBoundingClientRect();
+                var footerRect = footer.getBoundingClientRect();
+                var sidebarRect = sidebar.getBoundingClientRect();
+    
+                // Check for overlap with header or footer
+                if (headerRect.bottom > sidebarRect.top || footerRect.top < sidebarRect.bottom) {
+                    sidebar.style.opacity = '0';
+                    sidebar.style.pointerEvents = 'none';
+                } else {
+                    sidebar.style.opacity = '1';
+                    sidebar.style.pointerEvents = 'all';
+                }
+            }
+    
+            // Perform manual check after a short delay to ensure layout is stable
+            setTimeout(checkInitialOverlap, 100);
+    
+            // Check on window resize to adjust the sidebar if needed
+            window.addEventListener('resize', checkInitialOverlap);
         }
-    });
+    };
 })(jQuery);
