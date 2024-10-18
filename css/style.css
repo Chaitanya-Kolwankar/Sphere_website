@@ -1360,18 +1360,18 @@
 /* width adjust for nav logo */
 @media (min-width: 1440px) {
     .nav-w-size {
-        max-width: 58%;
+        max-width: 60%;
     }
 }
 
 @media (max-width: 1440px) and (min-width: 1080px) {
     .nav-w-size {
-        max-width: 58%;
+        max-width: 60%;
     }
 }
 
 @media (max-width: 1080px) and (min-width: 838px) {
     .nav-w-size {
-        max-width: 42%; 
+        max-width: 52%; 
     }
 }
