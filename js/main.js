@@ -164,13 +164,22 @@
             var header = document.getElementById('header-section');
             var footer = document.getElementById('footer-section');
 
-            // Observer options to trigger when at least 1% of the header/footer is visible
+            function getThreshold() {
+                var screenWidth = window.innerWidth;
+                if (screenWidth >= 1440) {
+                    return 0.9; // Large screens (like 1440px or more)
+                } else if (screenWidth >= 1080) {
+                    return 0.7; // Medium screens (1080px to 1440px)
+                } else {
+                    return 0.5; // Smaller screens (below 1080px)
+                }
+            }
+
             var observerOptions = {
                 root: null,
-                threshold: 1 // Detect small overlaps
+                threshold: getThreshold()
             };
 
-            // Function to hide the sidebar when overlapping
             function hideSidebarOnOverlap(entries) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -183,21 +192,17 @@
                 });
             }
 
-            // Create observers for header and footer
             var headerObserver = new IntersectionObserver(hideSidebarOnOverlap, observerOptions);
             var footerObserver = new IntersectionObserver(hideSidebarOnOverlap, observerOptions);
 
-            // Observe the header and footer
             headerObserver.observe(header);
             footerObserver.observe(footer);
 
-            // Manual check to ensure no overlap on page load
             function checkInitialOverlap() {
                 var headerRect = header.getBoundingClientRect();
                 var footerRect = footer.getBoundingClientRect();
                 var sidebarRect = sidebar.getBoundingClientRect();
 
-                // Check for overlap with header or footer
                 if (headerRect.bottom > sidebarRect.top || footerRect.top < sidebarRect.bottom) {
                     sidebar.style.opacity = '0';
                     sidebar.style.pointerEvents = 'none';
@@ -206,11 +211,7 @@
                     sidebar.style.pointerEvents = 'all';
                 }
             }
-
-            // Perform manual check after a short delay to ensure layout is stable
             setTimeout(checkInitialOverlap, 100);
-
-            // Check on window resize to adjust the sidebar if needed
             window.addEventListener('resize', checkInitialOverlap);
         }
     };
