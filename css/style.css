@@ -141,7 +141,7 @@
 
 .navbar .navbar-nav .nav-item {
     position: relative;
-    margin: 0 5px !important;
+    margin: 0 8px !important;
 }
 
 .navbar .navbar-nav .nav-item::before,
@@ -212,10 +212,15 @@
 }
 
 @media (max-width: 991px) {
-    .navbar .navbar-nav .nav-item.nav-link {
-        margin: 15px 0 !important;
+
+    .navbar .navbar-nav .nav-item.nav-link,
+    .navbar .navbar-nav .nav-link {
+        margin: 12px 0 !important;
     }
 
+    .navbar .navbar-nav .nav-item {
+        margin: 0 0px !important;
+    }
 }
 
 .dropdown .dropdown-menu a:hover {
@@ -1372,6 +1377,6 @@
 
 @media (max-width: 1080px) and (min-width: 838px) {
     .nav-w-size {
-        max-width: 52%; 
+        max-width: 52%;
     }
 }
