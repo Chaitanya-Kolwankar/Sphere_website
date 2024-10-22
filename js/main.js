@@ -164,20 +164,9 @@
             var header = document.getElementById('header-section');
             var footer = document.getElementById('footer-section');
 
-            function getThreshold() {
-                var screenWidth = window.innerWidth;
-                if (screenWidth >= 1440) {
-                    return 0.9; // Large screens (like 1440px or more)
-                } else if (screenWidth >= 1080) {
-                    return 0.7; // Medium screens (1080px to 1440px)
-                } else {
-                    return 0.5; // Smaller screens (below 1080px)
-                }
-            }
-
             var observerOptions = {
                 root: null,
-                threshold: getThreshold()
+                threshold: 0.9
             };
 
             function hideSidebarOnOverlap(entries) {
