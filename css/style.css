@@ -438,7 +438,7 @@
 .bg-breadcrumb {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/carousel-5.png);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/carousel-5.webp);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -954,7 +954,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    background-image: url(../img/bg.png);
+    background-image: url(../img/bg.webp);
     object-fit: cover;
     z-index: -1;
 }
@@ -1309,7 +1309,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url(../img/bg-4.jpg);
+    background-image: url(../img/bg-4.webp);
     background-size: cover;
     background-position: center;
     opacity: 1;
