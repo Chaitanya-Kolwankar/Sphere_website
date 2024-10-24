@@ -205,6 +205,7 @@
         }
     };
 
+    //---nav close if open
     document.addEventListener("DOMContentLoaded", function () {
         var navbar = document.querySelector('.navbar-collapse');
         var header = document.querySelector('nav');
@@ -213,21 +214,52 @@
     
         var toggleButton = document.querySelector('.navbar-toggler');
         toggleButton.addEventListener('click', function () {
-            isNavbarToggled = !isNavbarToggled; 
+            isNavbarToggled = !isNavbarToggled;
         });
     
-        window.addEventListener('scroll', function () {
+        function throttle(func, limit) {
+            let lastFunc;
+            let lastRan;
+            return function () {
+                const context = this;
+                const args = arguments;
+                if (!lastRan) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                } else {
+                    clearTimeout(lastFunc);
+                    lastFunc = setTimeout(function () {
+                        if ((Date.now() - lastRan) >= limit) {
+                            func.apply(context, args);
+                            lastRan = Date.now();
+                        }
+                    }, limit - (Date.now() - lastRan));
+                }
+            };
+        }
+    
+        function handleScroll() {
             var scrollTop = document.documentElement.scrollTop;
-           
-            if (scrollTop > navHeight && navbar.classList.contains('show') && !isNavbarToggled) {
-                navbar.classList.remove('show');
+    
+            if (scrollTop > navHeight && navbar.classList.contains('show')) {
+                if (!isNavbarToggled) {
+                    navbar.classList.remove('show');
+                } else {
+                    isNavbarToggled = false;
+                }
             }
+        }
+    
+        window.addEventListener('scroll', throttle(handleScroll, 200));
+    
+        navbar.addEventListener('shown.bs.collapse', function () {
+            isNavbarToggled = true;
         });
-        
+    
         navbar.addEventListener('hidden.bs.collapse', function () {
             isNavbarToggled = false;
         });
     });
-    
-    
+
+
 })(jQuery);
